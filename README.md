@@ -1,11 +1,10 @@
 # Pivotal Cloud Foundry (PCF) & Spring Workshop
-## Pivotal Software and Perficient St. Louis
+## Pivotal Software and Perficient 
 Join Pivotal and Perficient for a full-day hands-on workshop to introduce key concepts in modern cloud-native application development and delivery. This workshop will introduce concepts of cloud-native, Spring and .Net application development, container workload deployments with [Pivotal Cloud Foundry](https://pivotal.io/platform), as well as application monitoring with PCF Metrics and platform monitoring with PCF Healthwatch. The labs will leverage Spring Boot 2.0, Spring Actuator, Spring Cloud Data Flow for PCF, and other PCF 2.0 topics.
 
 ## Topics
 - Cloud-native Architecture and Security
 - PCF 2.0 with Pivotal Application Service (PAS) and Pivotal - Container Service (PKS) Overview
-- What's new in PCF 2.1
 - Spring Boot 2.0 apps dev and Spring Actuator
 - Application deployment on PAS
 - Spring Cloud and Spring Cloud Data Flow (SCDF) for PCF
@@ -18,7 +17,6 @@ _This workshop is intended for: Managers, Architects, Developers, Operators and 
 > __NOTE__: Space is limited. Please register for the workshop [here](http://connect.pivotal.io/PCF-Spring-Workshop-Pivotal-Perficient.html) today.
 
 ## Events of Interest
-- [SpringOne Tour by Pivotal](https://springonetour.io/), [St. Louis May 30-31 at T-Rex](https://springonetour.io/2018/st-louis). Cloud-Native Java From the Source: The SpringOne Tour brings the best Cloud-Native Java content from our flagship conference directly to you. In 2 days, you’ll learn about both traditional monolithic and modern, Cloud-Native Java from the source. Experience valuable facetime with expert Pivotal speakers in both traditional presentation and informal open space discussions about modern Application Development, DevOps, CI/CD, Cloud and more.
 - Stay informed for the [2018 SpringOne Platform by Pivotal](https://springoneplatform.io/) to be held in Sept. 24-27 in Washington, D.C.
 - Join Perficient and Pivotal at [Gateway to Innovation](https://www.g2iconference.com).  
 Meet the team and hear from our clients at our co-sponsored session: [Unleash Innovation with Application Modernization](https://www.g2iconference.com/agenda/session/186985).  
@@ -35,7 +33,7 @@ Time | Session
 8:30 AM - 9:00 AM | _Registration and Breakfast_
 9:00 AM - 9:15 AM | _Introductions, Logistics, Company Overviews_
 9:15 AM - 9:45 AM | _Session 1: Cloud Native Architectures & Security_
-9:45 AM - 10:30 AM | _Session 2: PCF 2.0 Overview*_
+9:45 AM - 10:30 AM | _Session 2: 12 Factor apps*_
 10:30 AM - 10:45 AM | _Break_
 10:45 AM - 11:15 AM | _Session 3: What's new in PCF 2.1?_
 11:15 AM - 12:00 PM | _Session 4: PCF Application Deployment Labs_
@@ -118,13 +116,11 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 ### Instructors
 - **Vishal Sharma** - Perficient - Director/Principle Architect, vishal.sharma@perficient.com
 - **Sharath Sahadevan** - Pivotal - Platform Achitect, ssahadevan@pivotal.io
-- **Chris Busch** - Pivotal - Platform Architect, cbusch@pivotal.io
 - **DJ Kaiping** - Perficient - Sr. Technical Architect, dj.kaiping@perficient.com
-- **Cory Jett** - Pivotal - Platform Architect, cjett@pivotal.io
 
 ### Hosts
 - **Dave Stockmann** - Perficient Director/Principle Architect, dave.stockmann@perficient.com
-- **Jason Hudnall** - Perficient St. Louis General Manager, jason.hudnall@perficient.com
-- **Daniel Hawthorne** - Pivotal Account Executive, dhawthorne@pivotal.io
-- **Jim Lyon** - Pivotal Account Executive, jlyon@pivotal.io
+- **Jason Hudnall** - Perficient  General Manager, jason.hudnall@perficient.com
+- **Brian Lock** - Pivotal Account Executive, bdlock@pivotal.io
+- **Jason Foster** - Pivotal Account Executive, jfoster@pivotal.io
 ...

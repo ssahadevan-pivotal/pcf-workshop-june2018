@@ -1,0 +1,251 @@
+= Lab 6 - Using PCF Autoscaler CLI
+
+== App Autoscaler Overview
+App Autoscaler is a marketplace service that helps control the cost of running apps while maintaining app performance.
+The App Autoscaler automatically scales Cloud Foundry apps in response to demand. The App Autoscaler CLI lets you control the App Autoscaler from your local command line by extending the Cloud Foundry command-line interface (cf CLI).
+
+To balance app performance and cost, Space Developers can use App Autoscaler to do the following:
+
+* Configure rules that adjust instance counts based on metrics thresholds such as CPU Usage
+* Modify the maximum and minimum number of instances for an app, either manually or following a schedule
+
+link:https://docs.pivotal.io/pivotalcf/2-1/appsman-services/autoscaler/using-autoscaler-cli.html[Using the App Autoscaler CLI] documentation is the location for detailed information on the PCF 2.1 Autoscaler CLI.
+
+=== Configure Autoscaling for an App
+App Autoscaler keeps instance counts within an allowable range defined by minimum and maximum values, or instance limits.
+
+Follow the procedures in the sections below to set any of the following:
+
+* Instance Limits
+* Scaling Rules
+* Scheduled Limit Changes
+
+== Install the plug
+
+Let's start by downloading the using the link:https://network.pivotal.io/products/pcf-app-autoscaler[Autoscaler Download]. Please see the instructor if you cannot download from the Pivotal Network. The plugin will be made available on a USB stick or another download method.
+
+Once you have the plugin binary, use the following command to install it into the `cf` CLI:
+
+----
+$ cf install-plugin autoscaler-for-pcf-cliplugin-macosx64-binary-1.0.63
+Attention: Plugins are binaries written by potentially untrusted authors.
+Install and use plugins at your own risk.
+Do you want to install the plugin /Users/cbusch/Downloads/Pivotal/autoscaler-for-pcf-cliplugin-macosx64-binary-1.0.63? [yN]:
+----
+
+Type `y` to install the plugin.
+
+----
+Do you want to install the plugin /Users/cbusch/Downloads/Pivotal/autoscaler-for-pcf-cliplugin-macosx64-binary-1.0.63? [yN]: y
+Installing plugin App Autoscaler...
+OK
+Plugin App Autoscaler 1.0.63 successfully installed.
+----
+
+== List the plugin commands
+
+Next, list the plugins available for your `cf` CLI installation.
+
+----
+$ cf plugins
+Listing installed plugins...
+
+plugin                                     version   command name                command help
+App Autoscaler                             1.0.63    autoscaling-apps            Displays apps bound to the autoscaler
+App Autoscaler                             1.0.63    autoscaling-events          Displays previous autoscaling events for the app
+App Autoscaler                             1.0.63    autoscaling-rules           Displays rules for an autoscaled app
+App Autoscaler                             1.0.63    configure-autoscaling       Configures autoscaling using a manifest file
+App Autoscaler                             1.0.63    create-autoscaling-rule     Create rule for an autoscaled app
+App Autoscaler                             1.0.63    delete-autoscaling-rule     Delete rule for an autoscaled app
+App Autoscaler                             1.0.63    delete-autoscaling-rules    Delete all rules for an autoscaled app
+App Autoscaler                             1.0.63    disable-autoscaling         Disables autoscaling for the app
+App Autoscaler                             1.0.63    enable-autoscaling          Enables autoscaling for the app
+App Autoscaler                             1.0.63    update-autoscaling-limits   Updates autoscaling instance limits for the app
+buildpack-usage                            1.0.4     buildpack-usage             Show all apps using a given buildpack
+FirehosePlugin                             0.11.0    app-nozzle                  Displays messages from the firehose for a given app
+FirehosePlugin                             0.11.0    nozzle                      Displays messages from the firehose
+Log Cache CLI Plugin                       N/A       log-meta                    Show all available meta information
+Log Cache CLI Plugin                       N/A       tail                        Output logs for a source-id/app
+mysql                                      1.3.5     mysql                       Connect to a MySQL database service
+mysql                                      1.3.5     mysqldump                   Dump a MySQL database
+pcfdev                                     0.27.0    dev, pcfdev                 Control PCF Dev VMs running on your workstation
+service-instance-logging                   1.0.1     service-logs, sil           Tail or show recent logs for a service instance
+top                                        0.8.8     top                         Displays top stats - by Kurt Kellner
+update-cli                                 0.1.1     update-cli                  Update cf cli to the latest version
+
+Use 'cf repo-plugins' to list plugins in registered repos available to install.
+----
+
+Use the CLI help feature as a way to also list all the plugins.
+
+----
+$ cf help
+...
+Commands offered by installed plugins:
+  autoscaling-apps            update-autoscaling-limits    mysqldump
+  autoscaling-events          buildpack-usage              dev,pcfdev
+  autoscaling-rules           local                        service-logs,sil
+  configure-autoscaling       copy                         dataflow-shell,dfsh
+  create-autoscaling-rule     app-nozzle                   top
+  delete-autoscaling-rule     nozzle                       update-cli
+  delete-autoscaling-rules    log-meta                     usage-report
+  disable-autoscaling         tail                         user-migration
+  enable-autoscaling          mysql
+
+Global options:
+  --help, -h                         Show help
+  -v                                 Print API request diagnostics to stdout
+
+Use 'cf help -a' to see all commands.
+----
+
+or
+
+----
+$ cf help | grep autoscaling
+  autoscaling-apps            update-autoscaling-limits    mysqldump
+  autoscaling-events          buildpack-usage              dev,pcfdev
+  autoscaling-rules           local                        service-logs,sil
+  configure-autoscaling       copy                         dataflow-shell,dfsh
+  create-autoscaling-rule     app-nozzle                   top
+  delete-autoscaling-rule     nozzle                       update-cli
+  delete-autoscaling-rules    log-meta                     usage-report
+  disable-autoscaling         tail                         user-migration
+  enable-autoscaling          mysql
+----
+
+== Enable autoscaling for an app
+
+To enable autoscaling, an instance of the _App Autoscaler_ must be created and bound to the app. At that point the CLI can be use to enable or disable autoscaling. Note that one, and only one, _App Autoscaler_ service can exist within a space.
+
+To create an instance of the _App Autoscaler_ and bind it to the `attendees` app, open link:https://run.pivotal.io[PWS] in a browser, go to your assigned org and space where the `attendees` is running, and flip the *Autoscaling* switch.
+
+image::/../../common/images/AppsMan-autoscaler.png[]
+
+This creates the service and binds it to the app. In 30 seconds or so, the app will autoscale to two instances due to the default being 2 min and 3 max.
+
+At this point, autoscaling is enabled. To disable autoscaling without unbinding or deleting the autoscaler service, use the `cf disable-autoscaling attendees` CLI. To re-enable autoscaling, simply run `cf enable-autoscaling attendees`.
+
+== Update autoscaling limits
+
+Limits define the minimum and maximum application instances (AI's) which will run according to the rules provided. If no rules are provided, then the minimum number of AI's will be achieved.
+
+Pivotal Cloud Foundry (PCF) users with the _Space Developer_ role can set up and configure the _App Autoscaler_ service in the _Apps Manager UI_ or the `cf` CLI to automatically scale apps based on link:https://docs.pivotal.io/pivotalcf/2-1/appsman-services/autoscaler/using-autoscaler.html#metric[rules]. 
+
+*NOTE*: Space Managers, Space Auditors, and all Org roles do not have permission to use _App Autoscaler_.
+
+Use the following `cf` CLI _Auto Scaling_ command to change the minimum and maximum settings.
+
+----
+$ cf update-autoscaling-limits attendees 1 8
+Updated autoscaling instance limits for app attendees for org STLWorkshop / space instructor as cbusch@pivotal.io
+OK
+----
+
+== Create autoscaling rules
+
+To keep your apps available without wasting resources, _App Autoscaler_ increments or decrements instance counts based on how current metrics compare with configurable High and Low thresholds.
+
+**How App Autoscaler Determines When to Scale**
+
+App Autoscaler scales apps as follows:
+
+* Increment by one instance when any metric exceeds the High threshold specified
+* Decrement by one instance only when all metrics fall below the Low threshold specified
+
+The following command creates an `http_throughput` rule which watches the "Total HTTP Requests" per second (divided by total app instances).
+
+----
+$ cf create-autoscaling-rule attendees http_throughput 24 25
+----
+
+This rule looks for the average CPU percentage for all instances of the app.
+
+----
+$ cf create-autoscaling-rule attendees cpu 89 90
+----
+
+== Using an autoscaling manifest
+
+A manifest YAML file can be created to capture auto scaling limits and rules to make it easy to apply in CI/CD pipelines during normal deployments.
+
+Examples `autoscaler_manifest.yml`:
+
+----
+instance_limits:
+  min: 1
+  max: 8
+rules:
+  - rule_type: "http_latency"
+    rule_sub_type: "avg_95th"
+    threshold:
+      min: 199
+      max: 200
+scheduled_limit_changes:
+  - recurrence: 10
+    executes_at: "2018-04-03T15:10:55Z"
+    instance_limits:
+      min: 10
+      max: 20
+----
+
+Applying limits and rules with a manifest file:
+
+----
+$ cf configure-autoscaling attendees autoscaler_manifest.yml
+----
+
+== Viewing the rules
+At any time, you can use the following command to see what auto scaling rules have been applied to an application.
+
+----
+$ cf autoscaling-rules attendees
+----
+
+== Deleting rules
+Using the output of the `cf autoscaling-rule <app>` viewing, copy the _Rule Guid_ to use in the delete a rule, as demonstrated below:
+
+----
+$ cf delete-autoscaling-rule attendees <RULE GUID>
+----
+
+View the app rules to verify that the rule has been deleted.
+
+----
+$ cf autoscaling-rules attendees
+----
+
+== Autoscaling events
+App Autoscaler logs all autoscaling events including scaling decisions and binding auto-disable events.
+
+To view all autoscaling events in the past 24 hours, click the view more icon in the Event History section of the App Autoscaler UI.
+
+----
+$ cf autoscaling-events attendees
+----
+
+Creat new rules to make events fire, such as:
+
+----
+$ cf create-autoscaling-rule attendees http_throughput 10 20
+----
+
+Show the events occuring. 
+
+*Note* that the _App Autoscaler_ is set for the entire PCF installation and usually is configured to occur every 30 seconds, or so, but could be as much as 3 minutes.
+
+----
+$ cf autoscaling-events attendees
+----
+
+== Stop autoscaling for an app
+To disable autoscaling for an app, use the following command. This does not delete the _App Autoscaler_ service instance or unbind the service from your app. It simply disables its use. At any time the `cf enable-autoscaling <app>` can be used to re-enable auto scaling.
+
+----
+$ cf disable-autoscaling attendees
+----
+
+Please see the link:https://docs.pivotal.io/pivotalcf/2-1/appsman-services/autoscaler/using-autoscaler-cli.html[Using the App Autoscaler CLI] documentation for more information on autoscaling your applications.
+
+
+link:/README.md#course-materials[Course Materials home]
