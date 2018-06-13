@@ -28,7 +28,7 @@ Time | Session
 9:15 AM - 9:45 AM | _Session 1: Cloud Native Architectures & Security_
 9:45 AM - 10:30 AM | _Session 2: 12 Factor apps*_
 10:30 AM - 10:45 AM | _Break_
-10:45 AM - 11:15 AM | _Session 3: What's new in PCF 2.1?_
+10:45 AM - 11:15 AM | _Session 3: PCF Overview_
 11:15 AM - 12:00 PM | _Session 4: PCF Application Deployment Labs_
 12:00 PM - 1:00 PM | _Working Lunch with Perficient guest speaker - Project Experiences_
 1:00 PM - 1:45 PM | _Session 5: Spring Boot and Actuator with Lab_
@@ -82,7 +82,7 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 
 #### _Session 2: Developing 12 factor applications_ [(Slides)](https://github.com/fpmoles/talks-twelve-factor/blob/master/presentation/slides.pdf)
 
-#### _Session 3: PCF 2.0 Overview with PAS and PKS_ [(Slides)](session_02/Session_02-PCF-PAS-PKS-Overview.pptx)
+#### _Session 3: PCF Overview with PAS and PKS_ [(Slides)](session_02/Session_02-PCF-PAS-PKS-Overview.pptx)
 
 #### _Session 4: PCF Application Deployment Labs_
   - [Lab 1 - From Zero to Pushing Your First Application](session_04/lab_01/lab_01.adoc)
