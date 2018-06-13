@@ -87,9 +87,9 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 
 #### _Session 1: Cloud Native Architectures & Security_ [(Slides)](session_01/Session_01-Cloud_Native_Architectures_and_Security.pptx)
 
-#### _Session 2: PCF 2.0 Overview with PAS and PKS_ [(Slides)](session_02/Session_02-PCF-PAS-PKS-Overview.pptx)
+#### _Session 2: Developing 12 factor applications [(Slides)](https://github.com/fpmoles/talks-twelve-factor/blob/master/presentation/slides.pdf)
 
-#### _Session 3: What's new in PCF 2.1?_ [(Slides)](session_03/Session_03-Whats-New-in-PCF-21.pptx)
+#### _Session 3: PCF 2.0 Overview with PAS and PKS_ [(Slides)](session_02/Session_02-PCF-PAS-PKS-Overview.pptx)
 
 #### _Session 4: PCF Application Deployment Labs_
   - [Lab 1 - From Zero to Pushing Your First Application](session_04/lab_01/lab_01.adoc)
