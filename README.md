@@ -30,7 +30,7 @@ Time | Session
 10:30 AM - 10:45 AM | _Break_
 10:45 AM - 11:15 AM | _Session 3: PCF Overview_
 11:15 AM - 12:00 PM | _Session 4: PCF Application Deployment Labs_
-12:00 PM - 1:00 PM | _Working Lunch with Perficient guest speaker - Project Experiences_
+12:00 PM - 1:00 PM | _Working Lunch with guest speaker - Project Experiences_
 1:00 PM - 1:45 PM | _Session 5: Spring Boot and Actuator with Lab_
 1:45 PM - 2:45 PM | _Session 6: Spring Cloud Data Flow on PCF with Lab_
 2:45 PM - 3:00 PM | _Break_
@@ -107,9 +107,12 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 ## The Team
 
 ### Instructors
-- **Vishal Sharma** - Perficient - Director/Principle Architect, vishal.sharma@perficient.com
+- **Rob Winch** - Pivotal -         Sr. Principle Software Engineer, rwinch@pivotal.io
+- **Jonathan Regehr** - Garmin -    Software Engineer, Jonathan.Regehr@garmin.com
+- **DaShaun Carter** - MedZero -    VP of Engineering / Lead Architect for MedZERO
+- **Frank Moley** -   DataStax  -   Senior Software Engineer,frankmoley@gmail.com
+- **Suhas Hangel** - Perficient -   Principle Architect, suhas.hangel@perficient.com
 - **Sharath Sahadevan** - Pivotal - Platform Achitect, ssahadevan@pivotal.io
-- **DJ Kaiping** - Perficient - Sr. Technical Architect, dj.kaiping@perficient.com
 
 ### Hosts
 - **Dave Stockmann** - Perficient Director/Principle Architect, dave.stockmann@perficient.com
