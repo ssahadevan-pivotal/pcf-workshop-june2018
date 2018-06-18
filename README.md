@@ -89,7 +89,7 @@ Finally, in order to perform the labs, you must be connected or logged into a li
   - [Lab 2 - Binding to Cloud Foundry Services](session_04/lab_02/lab_02.adoc)
   - [Lab 3 - Scaling Applications with Apps Manager](session_04/lab_03/lab_03.adoc)
 
-#### _Lunch Session: Perficient_ [(Slides)](session_lunch/Session_Lunch-Monetization_Platform.pptx)
+#### _Lunch Session: Gautham Pallapa, West Corp_ 
 
 #### _Session 5: Spring Boot 2.0 and Actuator_ [(Slides)](session_05/Session_05-Spring-Boot-20-and-Actuator.pptx)
   - [Lab 4 - Spring Boot Actuator Lab](session_05/lab_04/lab_04.adoc) 
