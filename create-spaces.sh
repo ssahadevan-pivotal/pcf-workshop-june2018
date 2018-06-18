@@ -19,8 +19,7 @@ function doCmd()
 }
 
 DEBUG=0
-org=STLWorkshop
-quota=student
+org=Workshop
 pword="passw0rd"
 
 echo "*** Creating student spaces and add student to space..."
@@ -33,7 +32,7 @@ do
 
   echo "*** Creating space $space..."
   doCmd "cf create-space $space -o $org"
-  doCmd "cf set-space-quota $space $quota"
+  doCmd "cf set-space-quota $space 
   doCmd "cf set-space-role $name $org $space SpaceDeveloper"
 done
 

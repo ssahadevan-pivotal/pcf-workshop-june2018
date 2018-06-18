@@ -32,11 +32,11 @@ Time | Session
 11:15 AM - 12:00 PM | _Session 4: PCF Application Deployment Labs_
 12:00 PM - 1:00 PM | _Working Lunch with guest speaker - Project Experiences_
 1:00 PM - 1:45 PM | _Session 5: Spring Boot and Actuator with Lab_
-1:45 PM - 2:45 PM | _Session 6: Spring Cloud Data Flow on PCF with Lab_
+1:45 PM - 2:45 PM | _Session 6: Spring Cloud Data Flow on PCF_
 2:45 PM - 3:00 PM | _Break_
 3:00 PM - 3:45 PM | _Session 7: Scaling Apps with the new Autoscaler CLI with Lab_
-3:45 PM - 4:10 PM | _Session 8: PCF Metrics and PCF Healthwatch Overview_
-4:10 PM - 4:30 PM | _Wrap-up, Q&A, Course evaluation_
+3:45 PM - 4:00 PM | _Break_
+4:00 PM - 4:30 PM | _Wrap-up, Q&A, Course evaluation_
 
 _*with Pivotal Application Service (PAS) and Pivotal Container Service (PKS)_
 
@@ -100,18 +100,16 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 #### _Session 7: Scaling Apps with the new Autoscaler CLI_ [(Slides)](session_07/Session_07-Scaling-Apps-Autoscaler-CLI.pptx)
   - [Lab 6 - Using PCF Autoscaler](session_07/lab_06/lab_06.adoc)
 
-#### _Session 8: PCF Metrics and PCF Healthwatch Overview_ [(Slides)](session_08/Session_08-PCF-Metrics-Healthwatch.pptx)
-
 #### _Wrap-up, Q&A, Course evaluation_ [(Slides)](session_wrapup/Session_Wrap-Up.pptx)
 
 ## The Team
 
 ### Instructors
-- **Rob Winch** - Pivotal -         Sr. Principle Software Engineer, rwinch@pivotal.io
+- **Rob Winch** - Pivotal -         Sr. Principal Software Engineer, rwinch@pivotal.io
 - **Jonathan Regehr** - Garmin -    Software Engineer, Jonathan.Regehr@garmin.com
 - **DaShaun Carter** - MedZero -    VP of Engineering / Lead Architect for MedZERO
 - **Frank Moley** -   DataStax  -   Senior Software Engineer,frankmoley@gmail.com
-- **Suhas Hangel** - Perficient -   Principle Architect, suhas.hangel@perficient.com
+- **Suhas Hangel** - Perficient -   Principal Architect, suhas.hangel@perficient.com
 - **Sharath Sahadevan** - Pivotal - Platform Achitect, ssahadevan@pivotal.io
 
 ### Hosts
