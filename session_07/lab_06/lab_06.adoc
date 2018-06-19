@@ -138,7 +138,7 @@ Use the following `cf` CLI _Auto Scaling_ command to change the minimum and maxi
 
 ----
 $ cf update-autoscaling-limits attendees 1 8
-Updated autoscaling instance limits for app attendees for org STLWorkshop / space instructor as cbusch@pivotal.io
+Updated autoscaling instance limits for app attendees for org workshop / space instructor as cbusch@pivotal.io
 OK
 ----
 
