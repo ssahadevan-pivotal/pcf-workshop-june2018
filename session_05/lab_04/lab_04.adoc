@@ -238,13 +238,19 @@ $ curl localhost:8080/hello-world
 curl: (7) Failed to connect to localhost port 8080: Connection refused
 
 $ curl localhost:9000/hello-world
-{"id":1,"content":"Hello, Stranger!"}
+{"id":1,"content":"Hello, World!"}
 
 $ curl localhost:9001/actuator/health
 {"status":"UP"}
 ----
 
 == Test your application on Cloud Foundry
+
+Ensure your application is built using Maven.
+
+----
+./mvnw package
+----
 
 Using the Maven build `target/gs-actuator-service-0.1.0.jar`, *without* the `application.properties` file applying port 9000, push the app.
 
@@ -258,6 +264,13 @@ applications:
   memory: 1G
   instances: 1
   path: ./target/gs-actuator-service-0.1.0.jar
+----
+
+Log in to cloud foundry:
+
+----
+cf login
+... follow the prompts ...
 ----
 
 Push to cloud foundry:
