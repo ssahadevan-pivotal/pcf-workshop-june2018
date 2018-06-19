@@ -82,7 +82,7 @@ Finally, in order to perform the labs, you must be connected or logged into a li
 
 #### _Session 2: Developing 12 factor applications_ [(Slides)](https://github.com/fpmoles/talks-twelve-factor/blob/master/presentation/slides.pdf)
 
-#### _Session 3: PCF Overview with PAS and PKS_ [(Slides)](session_02/Session_02-PCF-PAS-PKS-Overview.pptx)
+#### _Session 3: PCF Overview with PAS and PKS_ [(Slides)](session_03/Session_03-PCF-PAS-PKS-Overview.pptx)
 
 #### _Session 4: PCF Application Deployment Labs_
   - [Lab 1 - From Zero to Pushing Your First Application](session_04/lab_01/lab_01.adoc)
