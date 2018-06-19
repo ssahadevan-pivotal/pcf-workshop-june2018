@@ -1,10 +1,13 @@
 = Spring Boot Actuator Lab
 
-http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready[Spring Boot Actuator] is a sub-project of Spring Boot. It adds several production grade services to your application with little effort on your part. In this guide, you'll build an application and then see how to add these services.
+http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready[Spring Boot Actuator] is a sub-project of Spring Boot.
+It adds several production grade services to your application with little effort on your part.
+In this guide, you'll build an application and then see how to add these services.
 
 == What you'll build
 
-This guide will take you through creating a "hello world" _RESTful web service_ with *Spring Boot Actuator*. You'll build a service that accepts an HTTP GET request:
+This guide will take you through creating a "hello world" _RESTful web service_ with *Spring Boot Actuator*.
+You'll build a service that accepts an HTTP GET request:
 
 [source,sh]
 ----
@@ -18,12 +21,15 @@ It responds with the following JSON:
 {"id":1,"content":"Hello, World!"}
 ----
 
-There are also many features added to your application out-of-the-box for managing the service in a production (or other) environment.  The business functionality of the service you build is the same as in link:https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service]. You don't need to use that guide to take advantage of this one, although it might be interesting to compare the results.
+There are also many features added to your application out-of-the-box for managing the service in a production (or other) environment.
+ The business functionality of the service you build is the same as in link:https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service].
+You don't need to use that guide to take advantage of this one, although it might be interesting to compare the results.
 
 == Run the empty service
 For starters, here's an empty Spring MVC application.
 
-In your favorite IDE, open the directory `session_05/lab_04/initial`, or in a command prompt, change directories to `session_05/lab_04/initial`. This is an empty HelloWorldApplication java app.
+In your favorite IDE, open the directory `session_05/lab_04/initial`, or in a command prompt, change directories to `session_05/lab_04/initial`.
+This is an empty HelloWorldApplication java app.
 
 View the `src/main/java/hello/HelloWorldApplication.java` file to find the below contents.
 
@@ -44,9 +50,11 @@ public class HelloWorldApplication {
 }
 ----
 
-The `@SpringBootApplication` annotation provides a load of defaults (like the embedded servlet container) depending on the contents of your classpath, and other things. It also turns on Spring MVC's `@EnableWebMvc` annotation that activates web endpoints.
+The `@SpringBootApplication` annotation provides a load of defaults (like the embedded servlet container) depending on the contents of your classpath, and other things.
+It also turns on Spring MVC's `@EnableWebMvc` annotation that activates web endpoints.
 
-There aren't any endpoints defined in this application, but there's enough to launch things and see some of Actuator's features.  The `SpringApplication.run()` command knows how to launch the web application.
+There aren't any endpoints defined in this application, but there's enough to launch things and see some of Actuator's features.
+ The `SpringApplication.run()` command knows how to launch the web application.
 
 All you need to do is run the following command.
 
@@ -121,7 +129,8 @@ public class Greeting {
 Now that you'll create the endpoint controller that will serve the representation class.
 
 == Create a resource controller
-In Spring, REST endpoints are just Spring MVC controllers. The following Spring MVC controller handles a GET request for `/hello-world` and returns the `Greeting` resource.
+In Spring, REST endpoints are just Spring MVC controllers.
+The following Spring MVC controller handles a GET request for `/hello-world` and returns the `Greeting` resource.
 
 Next, create the file `src/main/java/hello/HelloWorldController.java`:
 
@@ -129,66 +138,64 @@ Next, create the file `src/main/java/hello/HelloWorldController.java`:
 ----
 package hello;
 
-import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-@Controller
+@RestController
 public class HelloWorldController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
     @GetMapping("/hello-world")
-    @ResponseBody
-    public Greeting sayHello(@RequestParam(name="name", required=false, defaultValue="Stranger") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    public Greeting hello() {
+        return new Greeting(1, "Hello, World!");
     }
-
 }
 ----
 
-The key difference between a human-facing controller and a REST endpoint controller is in how the response is created. Rather than rely on a view (such as JSP) to render model data in HTML, an endpoint controller simply returns the data to be written directly to the body of the response.
+The key difference between a human-facing controller and a REST endpoint controller is in how the response is created.
+Rather than rely on a view (such as JSP) to render model data in HTML, an endpoint controller simply returns the data to be written directly to the body of the response.
 
-The http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html[`@ResponseBody`] annotation tells Spring MVC not to render a model into a view, but rather to write the returned object into the response body. It does this by using one of Spring's message converters. Because Jackson 2 is in the classpath, this means that http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html[`MappingJackson2HttpMessageConverter`] will handle the conversion of Greeting to JSON if the request's `Accept` header specifies that JSON should be returned.
+The http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/bind/annotation/RestController.html[`@RestController`] is annotated with `@ResponseBody` which tells Spring MVC not to render a model into a view, but rather to write the returned object into the response body.
+It does this by using one of Spring's message converters.
+Because Jackson 2 is in the classpath, this means that http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html[`MappingJackson2HttpMessageConverter`] will handle the conversion of Greeting to JSON if the request's `Accept` header specifies that JSON should be returned.
 
-*NOTE*: How do you know Jackson 2 is on the classpath? Either run ` mvn dependency:tree` or `./gradlew dependencies` and you'll get a detailed tree of dependencies which shows Jackson 2.x. You can also see that it comes from https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-json[/spring-boot-starter-json], itself imported by https://github.com/spring-projects/spring-boot/blob/master/spring-boot-starters/spring-boot-starter-web/pom.xml[spring-boot-starter-web].
+*NOTE*: How do you know Jackson 2 is on the classpath? Either run ` mvn dependency:tree` or `./gradlew dependencies` and you'll get a detailed tree of dependencies which shows Jackson 2.x.
+You can also see that it comes from https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-json[/spring-boot-starter-json], itself imported by https://github.com/spring-projects/spring-boot/blob/master/spring-boot-starters/spring-boot-starter-web/pom.xml[spring-boot-starter-web].
 
 
 == Create an executable main class
 
-You can launch the application from a custom main class, or we can do that directly from one of the configuration classes.  The easiest way is to use the `SpringApplication` helper class:
+You can launch the application from a custom main class, or we can do that directly from one of the configuration classes.
+ The easiest way is to use the `SpringApplication` as we did in `HelloWorldApplication` above.
 
-`src/main/java/hello/HelloWorldApplication.java`
-[source,java]
-----
-include::complete/src/main/java/hello/HelloWorldApplication.java[]
-----
-
-In a conventional Spring MVC application, you would add `@EnableWebMvc` to turn on key behaviors including configuration of a `DispatcherServlet`. But Spring Boot turns on this annotation automatically when it detects **spring-webmvc** on your classpath. This sets you up to build a controller in an upcoming step.
+In a conventional Spring MVC application, you would add `@EnableWebMvc` to turn on key behaviors including configuration of a `DispatcherServlet`.
+But Spring Boot turns on this annotation automatically when it detects **spring-webmvc** on your classpath.
+This sets you up to build a controller in an upcoming step.
 
 The `@SpringBootApplication` also brings in a http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/context/annotation/ComponentScan.html[`@ComponentScan`], which tells Spring to scan the `hello` package for those controllers (along with any other annotated component classes).
 
 == Build an executable JAR
 
-You can run the application from the command line with Gradle or Maven. Or you can build a single executable JAR file that contains all the necessary dependencies, classes, and resources, and run that. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
+You can run the application from the command line with Gradle or Maven.
+Or you can build a single executable JAR file that contains all the necessary dependencies, classes, and resources, and run that.
+This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
 
-If you are using Gradle, you can run the application using `./gradlew bootRun`. Or you can build the JAR file using `./gradlew build`. Then you can run the JAR file:
+If you are using Gradle, you can run the application using `./gradlew bootRun`.
+Or you can build the JAR file using `./gradlew build`.
+Then you can run the JAR file:
 
 ----
 $ java -jar build/libs/gs-actuator-service-initial.jar
 ----
 
-If you are using Maven, you can run the application using `./mvnw spring-boot:run`. Or you can build the JAR file with `./mvnw clean package`. Then you can run the JAR file:
+If you are using Maven, you can run the application using `./mvnw spring-boot:run`.
+Or you can build the JAR file with `./mvnw clean package`.
+Then you can run the JAR file:
 
 ----
 $ java -jar target/gs-actuator-service-0.1.0.jar
 ----
 
-The procedure above will create a runnable JAR. You can also opt to build a classic WAR file instead.
+The procedure above will create a runnable JAR.
+You can also opt to build a classic WAR file instead.
 
 ----
 ... service comes up ...
@@ -198,12 +205,13 @@ Test it with the `curl` command:
 
 ----
 $ curl localhost:8080/hello-world
-{"id":1,"content":"Hello, Stranger!"}
+{"id":1,"content":"Hello, World!"}
 ----
 
 == Switch to a different server port
 
-Spring Boot Actuator defaults to run on port 8080. By adding an `application.properties` file, you can override that setting.
+Spring Boot Actuator defaults to run on port 8080.
+By adding an `application.properties` file, you can override that setting.
 
 Create a new `src/main/resources/application.properties` file with the following contents:
 
@@ -230,13 +238,19 @@ $ curl localhost:8080/hello-world
 curl: (7) Failed to connect to localhost port 8080: Connection refused
 
 $ curl localhost:9000/hello-world
-{"id":1,"content":"Hello, Stranger!"}
+{"id":1,"content":"Hello, World!"}
 
 $ curl localhost:9001/actuator/health
 {"status":"UP"}
 ----
 
 == Test your application on Cloud Foundry
+
+Ensure your application is built using Maven.
+
+----
+./mvnw package
+----
 
 Using the Maven build `target/gs-actuator-service-0.1.0.jar`, *without* the `application.properties` file applying port 9000, push the app.
 
@@ -250,6 +264,13 @@ applications:
   memory: 1G
   instances: 1
   path: ./target/gs-actuator-service-0.1.0.jar
+----
+
+Log in to cloud foundry:
+
+----
+cf login
+... follow the prompts ...
 ----
 
 Push to cloud foundry:
@@ -293,7 +314,8 @@ $ open `https://hello-world-thankful-waterbuck.apps.mypcf.net/hello-world`
 
 
 == Summary
-Congratulations! You have just developed a simple RESTful service using Spring. You added some useful built-in services thanks to Spring Boot Actuator.
+Congratulations! You have just developed a simple RESTful service using Spring.
+You added some useful built-in services thanks to Spring Boot Actuator.
 
 == See Also
 
