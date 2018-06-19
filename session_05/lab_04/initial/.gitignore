@@ -3,3 +3,7 @@
 .project
 .settings/
 bin/
+.idea
+*.iml
+target
+build
