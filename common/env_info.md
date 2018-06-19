@@ -23,6 +23,8 @@ Use the following information to connect (login) to specific environments as dir
 - Username: studentXX@workshop.com     where XX is 1 to 40 ie student1@workshop.com to student40@workshop.com
 - Password: password
 
+$ cf login -a api.run.haas-76.pez.pivotal.io -u studentXX@workshop.com --skip-ssl-validation
+
 ## Logging into an Environment
 Using the above information, your step to login are as follows below. When logging in, PCF will ask you for your password and which PCF Space, i.e. development, test, or production, in which you would like to work. Spaces can always be changed later using `cf target -s test`, for instance.
 
